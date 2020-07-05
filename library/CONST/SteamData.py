@@ -1,5 +1,13 @@
-currency = 
-{
+gamesID = {
+    "DOTA_2":   570,
+    "CSGO":     730,
+    "RUST":     252490,
+    "DST":      322330,
+    "UNTURNED": 304930,
+    "TF2":      440
+}
+
+currency = {
 	"USD":
 		{
 			"name": 		"United States Dollar",
@@ -7,7 +15,7 @@ currency =
 			"delimeter":	".",
 			"code":			1
 		},
-	
+
 	"GBP":
 		{
 			"name": 		"United Kingdom Pound",
@@ -15,7 +23,7 @@ currency =
 			"delimeter":	".",
 			"code":			2
 		},
-	
+
 	"EUR":
 		{
 			"name": 		"European Union Euro",
@@ -23,7 +31,7 @@ currency =
 			"delimeter":	",",
 			"code":			3
 		},
-	
+
 	"CHF":
 		{
 			"name": 		"Swiss Francs",
@@ -31,7 +39,7 @@ currency =
 			"delimeter":	".",
 			"code":			4
 		},
-	
+
 	"RUB":
 		{
 			"name": 		"Russian Rouble",
@@ -39,7 +47,7 @@ currency =
 			"delimeter":	",",
 			"code":			5
 		},
-	
+
 	"PLN":
 		{
 			"name": 		"Poland Zloty",
@@ -47,7 +55,7 @@ currency =
 			"delimeter":	",",
 			"code":			6
 		},
-	
+
 	"BRL":
 		{
 			"name": 		"Brazilian Real",
@@ -55,7 +63,7 @@ currency =
 			"delimeter":	",",
 			"code":			7
 		},
-	
+
 	"JPY":
 		{
 			"name": 		"Japanese Yen",
@@ -63,7 +71,7 @@ currency =
 			"delimeter":	".",
 			"code":			8
 		},
-	
+
 	"NOK":
 		{
 			"name": 		"Norwegian Krone",
@@ -71,7 +79,7 @@ currency =
 			"delimeter":	",",
 			"code":			9
 		},
-	
+
 	"IDR":
 		{
 			"name": 		"Indonesian Rupiah",
@@ -79,7 +87,7 @@ currency =
 			"delimeter":	".",
 			"code":			10
 		},
-	
+
 	"MYR":
 		{
 			"name": 		"Malaysian Ringgit",
@@ -87,8 +95,8 @@ currency =
 			"delimeter":	".",
 			"code":			11
 		},
-	
-	
+
+
 	"PHP":
 		{
 			"name": 		"Philippine Peso",
@@ -96,8 +104,8 @@ currency =
 			"delimeter":	".",
 			"code":			12
 		},
-	
-	
+
+
 	"SGD":
 		{
 			"name": 		"Singapore Dollar",
@@ -105,8 +113,8 @@ currency =
 			"delimeter":	".",
 			"code":			13
 		},
-	
-	
+
+
 	"THB":
 		{
 			"name": 		"Thai Baht",
@@ -114,7 +122,7 @@ currency =
 			"delimeter":	".",
 			"code":			14
 		},
-	
+
 	"VND":
 		{
 			"name": 		"Vietnamese Dong",
@@ -122,7 +130,7 @@ currency =
 			"delimeter":	".",
 			"code":			15
 		},
-	
+
 	"KRW":
 		{
 			"name": 		"South Korean Won",
@@ -130,7 +138,7 @@ currency =
 			"delimeter":	".",
 			"code":			16
 		},
-	
+
 	"TRY":
 		{
 			"name": 		"Turkish Lira",
@@ -138,7 +146,7 @@ currency =
 			"delimeter":	",",
 			"code":			17
 		},
-	
+
 	"UAH":
 		{
 			"name": 		"Ukrainian Hryvnia",
@@ -146,7 +154,7 @@ currency =
 			"delimeter":	",",
 			"code":			18
 		},
-	
+
 	"MXN":
 		{
 			"name": 		"Mexican Peso",
@@ -154,7 +162,7 @@ currency =
 			"delimeter":	".",
 			"code":			19
 		},
-	
+
 	"CAD":
 		{
 			"name": 		"Canadian Dollars",
@@ -162,7 +170,7 @@ currency =
 			"delimeter":	".",
 			"code":			20
 		},
-	
+
 	"AUD":
 		{
 			"name": 		"Australian Dollars",
@@ -170,7 +178,7 @@ currency =
 			"delimeter":	".",
 			"code":			21
 		},
-	
+
 	"NZD":
 		{
 			"name": 		"New Zealand Dollar",
@@ -178,7 +186,7 @@ currency =
 			"delimeter":	".",
 			"code":			22
 		},
-	
+
 	"CNY":
 		{
 			"name": 		"Chinese Renminbi (yuan)",
@@ -186,7 +194,7 @@ currency =
 			"delimeter":	".",
 			"code":			23
 		},
-	
+
 	"INR":
 		{
 			"name":			"Indian Rupee",
@@ -194,7 +202,7 @@ currency =
 			"delimeter":	".",
 			"code":			24
 		},
-	
+
 	"CLP":
 		{
 			"name":			"Chilean Peso",
@@ -202,7 +210,7 @@ currency =
 			"delimeter":	",",
 			"code":			25
 		},
-	
+
 	"PEN":
 		{
 			"name":			"Peruvian Sol",
@@ -210,7 +218,7 @@ currency =
 			"delimeter":	".",
 			"code":			26
 		},
-	
+
 	"COP":
 		{
 			"name":			"Colombian Peso",
@@ -218,7 +226,7 @@ currency =
 			"delimeter":	",",
 			"code":			27
 		},
-	
+
 	"ZAR":
 		{
 			"name":			"South African Rand",
@@ -226,7 +234,7 @@ currency =
 			"delimeter":	".",
 			"code":			28
 		},
-	
+
 	"HKD":
 		{
 			"name":			"Hong Kong Dollar",
@@ -234,7 +242,7 @@ currency =
 			"delimeter":	".",
 			"code":			29
 		},
-	
+
 	"TWD":
 		{
 			"name":			"New Taiwan Dollar",
@@ -242,7 +250,7 @@ currency =
 			"delimeter":	".",
 			"code":			30
 		},
-	
+
 	"SAR":
 		{
 			"name":			"Saudi Riyal",
@@ -250,7 +258,7 @@ currency =
 			"delimeter":	".",
 			"code":			31
 		},
-	
+
 	"AED":
 		{
 			"name":			"United Arab Emirates Dirham",
@@ -266,7 +274,7 @@ currency =
 			"delimeter":	",",
 			"code":			34
 		},
-	
+
 	"ILS":
 		{
 			"name":			"Israeli New Shekel",
@@ -274,7 +282,7 @@ currency =
 			"delimeter":	".",
 			"code":			35
 		},
-	
+
 	"KZT":
 		{
 			"name":			"Kazakhstani Tenge",
@@ -282,7 +290,7 @@ currency =
 			"delimeter":	",",
 			"code":			37
 		},
-	
+
 	"KWD":
 		{
 			"name":			"Kuwaiti Dinar",
@@ -290,7 +298,7 @@ currency =
 			"delimeter":	".",
 			"code":			38
 		},
-	
+
 	"QAR":
 		{
 			"name":			"Qatari Riyal",
@@ -298,7 +306,7 @@ currency =
 			"delimeter":	".",
 			"code":			39
 		},
-	
+
 	"CRC":
 		{
 			"name":			"Costa Rican Colón",
@@ -306,7 +314,7 @@ currency =
 			"delimeter":	",",
 			"code":			40
 		},
-	
+
 	"UYU":
 		{
 			"name":			"Uruguayan Peso",
