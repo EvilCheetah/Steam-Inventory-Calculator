@@ -2,35 +2,51 @@ import requests
 import json
 
 from .CONST import URL
-from .CONST import USER_DATA
-from .Item import item
 
 
 class client:
-    def __init__(self):
-        pass
+    #gets user's inventory as a json
+    def getItems(self, userID64, gameID):
 
-    def getItems(self, gameID):
-        r = requests.post(URL.INVENTORY.format(STEAM_ID64   = USER_DATA.STEAM_ID64,
+        #need a cookie["steamLoginSecure"] in order to
+        #avoid StatusCode 429 - Forbidden
+        r = requests.post(URL.INVENTORY.format(STEAM_ID64   = userID64,
                                                APP_ID       = gameID),
-                          data = URL.COOKIE
+                          cookies = URL.COOKIE
                          )
-        print(r)
 
-        if (r.status_code != '429'):
+        #If connection is not Forbidden => Read and Cache
+        if (r.status_code != 429):
             userInventory = r.json()
+
+            #Either:
+            # 1) Status Code == 429 (Forbidden)
+            # 2) User Doesn't have items from the game
+            #
+            # Assuming #2, since cookie is specified
+            if (userInventory["success"] == "false"):
+                return {}
+
             self.cacheInventory(gameID, userInventory)
 
+        #Otherwise read from the file
         else:
             userInventory = self.uncacheInventory(gameID)
 
+        return userInventory
+
+    #Saves an inventory as a JSON file
+    #PATH: /json/
     def cacheInventory(self, gameID, inventory):
         with open("json/{}.json".format(gameID), 'w') as fout:
+
+            #If inventory is not empty => dump
             if inventory:
                 fout.write( json.dumps(inventory) )
             else:
                 fout.write("{}")
 
+    #Reads the inventory from local JSON
     def uncacheInventory(self, gameID):
         try:
             with open("json/{}.json".format(gameID), 'r') as fin:
@@ -39,5 +55,5 @@ class client:
             return inventory
 
         except FileNotFoundError:
-            print("There is not file Cached")
+            print("There is not file Cached for Game: {}".format(gameID))
             return {}
