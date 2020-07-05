@@ -1,0 +1,111 @@
+{
+"CSGO":
+    {
+        "ITEM_PROPERTY":
+        {
+            "TRADABLE":   "True",
+            "MARKETABLE": "True"
+        },
+
+        "QUALITY":
+        {
+            "Stock":              "True",
+            "Consumer Grade":     "True",
+            "Mil-Spec Grade":     "True",
+            "Industrial Grade":   "True",
+            "Restricted":         "True",
+            "Classified":         "True",
+            "Covert":             "True",
+            "Distinguished":      "True",
+            "Exceptional":        "True",
+            "Superior":           "True",
+            "Master":             "True",
+            "Base Grade":         "True",
+            "Extraordinary":      "True",
+            "High Grade":         "True",
+            "Remarkable":         "True",
+            "Exotic":             "True",
+            "Contraband":         "True"
+        },
+
+        "TYPE":
+        {
+            "Pistol":             "True",
+            "SMG":                "True",
+            "Rifle":              "True",
+            "Sniper Rifle":       "True",
+            "Shotgun":            "True",
+            "Agent":              "True",
+            "Machinegun":         "True",
+            "Knife":              "True",
+            "Container":          "True",
+            "Sticker":            "True",
+            "Gloves":             "True",
+            "Graffiti":           "True",
+            "Music Kit":          "True",
+            "Collectible":        "True",
+            "Patch":              "True",
+            "Key":                "True",
+            "Pass":               "True",
+            "Gift":               "True",
+            "Tag":                "True",
+            "Tool":               "True",
+            "C4":                 "True"
+        }
+    },
+
+
+
+
+
+
+"DOTA_2":
+    {
+        "ITEM_PROPERTY":
+        {
+            "TRADABLE":         "True",
+            "MARKETABLE":       "True"
+        },
+
+        "QUALITY":
+        {
+            "Common":           "True",
+            "Uncommon":         "True",
+            "Rare":             "True",
+            "Mythical":         "True",
+            "Immortal":         "True",
+            "Legendary":        "True",
+            "Arcana":           "True",
+            "Ancient":          "True",
+            "Seasonal":         "True"
+        },
+
+        "TYPE":
+        {
+            "Announcer":        "True",
+            "Bundle":           "True",
+            "Courier":          "True",
+            "Cursor Pack":      "True",
+            "Emblem":           "True",
+            "Emoticon Tool":    "True",
+            "Gem":              "True",
+            "Rune":             "True",
+            "HUD Skin":         "True",
+            "League":           "True",
+            "Loading Screen":   "True",
+            "Misc":             "True",
+            "Music":            "True",
+            "Pennant":          "True",
+            "Player Card":      "True",
+            "Retired Chest":    "True",
+            "Taunt":            "True",
+            "Terrain":          "True",
+            "Tool":             "True",
+            "Treasure":         "True",
+            "Treasure Key":     "True",
+            "Ward":             "True",
+            "Wearable":         "True"
+        }
+    }
+
+}
