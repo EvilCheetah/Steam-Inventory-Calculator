@@ -1,4 +1,4 @@
-gamesID = {
+GAME_ID = {
     "DOTA_2":   570,
     "CSGO":     730,
     "RUST":     252490,
@@ -7,7 +7,7 @@ gamesID = {
     "TF2":      440
 }
 
-currency = {
+CURRENCY = {
 	"USD":
 		{
 			"name": 		"United States Dollar",
