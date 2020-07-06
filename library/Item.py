@@ -1,4 +1,5 @@
 from .CONST import SteamData
+from .CONST import URL
 
 class Item:
     def __init__(self,
@@ -29,6 +30,12 @@ class Item:
 
         #Quantity == Amount
         self.quantity     = quantity
+
+    @property
+    def marketURL(self):
+        return URL.MARKET_LISTING.format(APP_ID       = self.gameID,
+                                         NAME_OF_ITEM = self.marketName,
+                                         CURRENCY_ID  = URL.CURRENCY)
 
     def __str___(self):
         return ("{name}\n"
