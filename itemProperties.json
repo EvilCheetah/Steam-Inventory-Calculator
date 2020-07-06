@@ -3,8 +3,8 @@
     {
         "ITEM_PROPERTY":
         {
-            "TRADABLE":   "True",
-            "MARKETABLE": "True"
+            "TRADABLE":           "True",
+            "MARKETABLE":         "True"
         },
 
         "QUALITY":
@@ -59,6 +59,7 @@
 
 
 
+
 "DOTA_2":
     {
         "ITEM_PROPERTY":
@@ -106,6 +107,35 @@
             "Ward":             "True",
             "Wearable":         "True"
         }
-    }
+    },
 
+
+
+
+
+
+
+"RUST":
+    {
+        "ITEM_PROPERTY":
+        {
+            "TRADABLE":         "True",
+            "MARKETABLE":       "True"
+        },
+
+        "QUALITY":
+        {
+            "Workshop Item":    "True",
+            "":                 "True"
+        },
+
+        "TYPE":
+        {
+          "Weapon":             "True",
+          "Misc":               "True",
+          "Clothing":           "True",
+          "Armor":              "True",
+          "Resource":           "True"
+        }
+    }
 }
