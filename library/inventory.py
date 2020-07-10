@@ -2,10 +2,9 @@ from .client import client
 from .CONST import SteamData
 from .CONST import SearchPatterns
 from .item import Item
-from time import sleep
+
 import json
 import re
-
 import pprint
 
 class inventory:
@@ -26,6 +25,7 @@ class inventory:
             if (self.config["GAMES"][key] == "True"):
                 self.games.append( key )
 
+    #Reads the values from itemProperties.json file
     def readIgnoredItems(self):
         PATH = self.config["DEFAULT"]["ITEM_PROPERTIES"]
 
@@ -51,24 +51,43 @@ class inventory:
 
                 #Create a temp array for item storage
                 ignoreArray = []
+                ignoreDict  = {}
 
                 #Loop over the Elements in Properties
                 for parameter, value in parameters.items():
                     #Append ignored element into the array
                     if ( value == "False" ):
                         ignoreArray.append(parameter)
+                        continue
+
+                    elif ( parameter == "LOWER_MARGIN"):
+                        if ( float(value) < 0 or value == "False" or value == "None"):
+                            continue
+
+                        ignoreDict[parameter] = float(value)
+
+                    elif ( parameter == "UPPER_MARGIN"):
+                        if ( value == "INF" or value == False ):
+                            continue
+
+                        ignoreDict[parameter] = float(value)
 
                 #Record the array
-                self.avoidItems[game][property] = ignoreArray
+                if ( ignoreDict ):
+                    self.avoidItems[game][property] = ignoreDict
+                    continue
+
+                else:
+                    self.avoidItems[game][property] = ignoreArray
 
     #For File output(Large Amnt of Information)
     def outputItemList(self):
         with open("out.txt", 'w') as fout:
             for game in self.userItems.values():
-                for item in game.values():
+                for item in game:
                     out = str(item)
                     fout.write(out)
-                    fout.write('\n')
+                    fout.write('\n\n')
 
     def getInventoryList(self):
         for game in self.games:
@@ -81,10 +100,9 @@ class inventory:
                 continue
 
             inventory = self.processInventory(game, inventory)
+            inventory = list(inventory)
 
             self.userItems[game] = inventory
-
-
 
         self.outputItemList()
 
@@ -117,7 +135,7 @@ class inventory:
             if ( individualItem["classid"] in items ):
                 items[ individualItem["classid"] ].quantity += int(individualItem["amount"])
 
-        return items
+        return items.values()
 
     def processCSGOItems(self, items):
         itemList = {}
@@ -148,15 +166,33 @@ class inventory:
             if ( (not isMarketable) and ("MARKETABLE" in self.avoidItems["CSGO"]["ITEM_PROPERTY"]) ):
                 continue
 
-            itemList[itemID] = Item(game        = "CSGO",
-                                    item_name   = itemName,
-                                    item_id     = itemID,
-                                    market_name = itemMarketName,
-                                    quality     = itemQuality,
-                                    type        = itemType,
-                                    tradable    = isTradable,
-                                    marketable  = isMarketable
-                                    )
+            item = Item(game        = "CSGO",
+                        item_name   = itemName,
+                        item_id     = itemID,
+                        market_name = itemMarketName,
+                        quality     = itemQuality,
+                        type        = itemType,
+                        tradable    = isTradable,
+                        marketable  = isMarketable
+                        )
+
+            self.getAverageWeekPrice(item)
+
+            #Checks
+            #   avgPrice <= LOWER_MARGIN
+            if ( "LOWER_MARGIN" in self.avoidItems[item.gameName]["PRICE"] ):
+                if ( item.averagePrice <= self.avoidItems[item.gameName]["PRICE"]["LOWER_MARGIN"] ):
+                    #NOT IN RANGE!
+                    continue
+
+            #Checks
+            #   UPPER_MARGIN <= avgPrice
+            if ( "UPPER_MARGIN" in self.avoidItems[item.gameName]["PRICE"] ):
+                if ( item.averagePrice >= self.avoidItems[item.gameName]["PRICE"]["UPPER_MARGIN"] ):
+                    #NOT IN RANGE!
+                    continue
+
+            itemList[itemID] = item
 
         return itemList
 
@@ -242,3 +278,11 @@ class inventory:
                                     )
 
         return itemList
+
+    def getAverageWeekPrice(self, item):
+        #If item is not MARKETABLE
+        #Then there is no listing on Marketplace
+        if ( not item.isMarketable ):
+            return
+
+        item.averagePrice = client().getAverageItemPrice(item)

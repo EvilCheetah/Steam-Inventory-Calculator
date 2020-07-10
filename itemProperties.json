@@ -51,6 +51,11 @@
             "Tag":                "True",
             "Tool":               "True",
             "C4":                 "True"
+        },
+        "PRICE":
+        {
+            "LOWER_MARGIN":       "1.0",
+            "UPPER_MARGIN":       "INF"
         }
     },
 
@@ -106,6 +111,12 @@
             "Treasure Key":     "True",
             "Ward":             "True",
             "Wearable":         "True"
+        },
+
+        "PRICE":
+        {
+            "LOWER_MARGIN":       "0",
+            "UPPER_MARGIN":       "INF"
         }
     },
 
@@ -136,6 +147,12 @@
           "Clothing":           "True",
           "Armor":              "True",
           "Resource":           "True"
+        },
+
+        "PRICE":
+        {
+            "LOWER_MARGIN":       "0",
+            "UPPER_MARGIN":       "INF"
         }
     }
 }

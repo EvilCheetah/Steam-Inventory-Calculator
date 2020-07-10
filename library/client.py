@@ -1,5 +1,8 @@
 import requests
 import json
+import datetime
+import statistics
+import re
 
 from .CONST import URL
 
@@ -57,3 +60,42 @@ class client:
         except FileNotFoundError:
             print("There is not file Cached for Game: {}".format(gameID))
             return {}
+
+    def getPriceHistory(self, item: "Item"):
+        r = requests.post(item.priceHistoryURL, cookies = URL.COOKIE)
+
+        if (r.status_code != 429):
+
+            priceHistory = r.json()
+
+            if ( priceHistory["success"] == "false" ):
+                print("Try again later...")
+                return {}
+
+            priceHistory = priceHistory["prices"]
+
+            return priceHistory
+
+    def getAverageItemPrice(self, item: "Item"):
+        if ( not item.isMarketable ):
+            return
+
+        priceHistory = self.getPriceHistory(item)
+
+        upperWeekMargin = datetime.datetime.now().date()
+        lowerWeekMargin = upperWeekMargin - datetime.timedelta(days=7)
+
+        prices = []
+
+        for price in priceHistory:
+            fullDate = re.sub(re.compile(" \d\d: \+\d"), '', price[0])
+            fullDate = datetime.datetime.strptime(fullDate, "%b %d %Y").date()
+
+            if ( lowerWeekMargin <= fullDate and fullDate <= upperWeekMargin):
+                prices.append( float(price[1]) )
+
+
+
+        avgPrice = round( statistics.mean(prices), 2 )
+
+        return avgPrice
