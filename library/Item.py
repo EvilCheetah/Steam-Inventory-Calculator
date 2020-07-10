@@ -31,11 +31,19 @@ class Item:
         #Quantity == Amount
         self.quantity     = quantity
 
+        self.averagePrice = float(-1)
+
     @property
     def marketURL(self):
         return URL.MARKET_LISTING.format(APP_ID       = self.gameID,
-                                         NAME_OF_ITEM = self.marketName,
+                                         ITEM_NAME    = self.marketName,
                                          CURRENCY_ID  = URL.CURRENCY)
+
+    @property
+    def priceHistoryURL(self):
+        return URL.MARKET_PRICE_HISTORY.format(APP_ID      = self.gameID,
+                                               ITEM_NAME   = self.marketName,
+                                               CURRENCY_ID = URL.CURRENCY)
 
     def __str___(self):
         return ("{name}\n"
@@ -44,13 +52,15 @@ class Item:
                 "Type       - {type}\n"
                 "Tradable   - {tradable}\n"
                 "Marketable - {marketable}\n"
-                "You Own    - {quantity}\n").format(name          = self.itemName,
-                                                    id            = self.itemID,
-                                                    quality       = self.quality,
-                                                    type          = self.type,
-                                                    tradable      = self.isTradable,
-                                                    marketable    = self.isMarketable,
-                                                    quantity      = self.quantity)
+                "You Own    - {quantity}\n"
+                "AVG Price  - {average_price}").format(name          = self.itemName,
+                                                       id            = self.itemID,
+                                                       quality       = self.quality,
+                                                       type          = self.type,
+                                                       tradable      = self.isTradable,
+                                                       marketable    = self.isMarketable,
+                                                       quantity      = self.quantity,
+                                                       average_price = None if (self.averagePrice < 0) else self.averagePrice)
 
 
     #Cannot replace with:
@@ -63,10 +73,12 @@ class Item:
                 "Type       - {type}\n"
                 "Tradable   - {tradable}\n"
                 "Marketable - {marketable}\n"
-                "You Own    - {quantity}\n").format(name          = self.itemName,
-                                                    id            = self.itemID,
-                                                    quality       = self.quality,
-                                                    type          = self.type,
-                                                    tradable      = self.isTradable,
-                                                    marketable    = self.isMarketable,
-                                                    quantity      = self.quantity)
+                "You Own    - {quantity}\n"
+                "AVG Price  - {average_price}").format(name          = self.itemName,
+                                                       id            = self.itemID,
+                                                       quality       = self.quality,
+                                                       type          = self.type,
+                                                       tradable      = self.isTradable,
+                                                       marketable    = self.isMarketable,
+                                                       quantity      = self.quantity,
+                                                       average_price = None if (self.averagePrice < 0) else self.averagePrice)
