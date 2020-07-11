@@ -8,7 +8,17 @@ from .CONST import URL
 
 
 class client:
-    #gets user's inventory as a json
+
+###------------Get Inventory Function------------###
+###
+###     Gets the inventory of user based
+###     on their STEAM_ID64 in
+###     JSON(Dictionary) form.
+###
+###     If cached inventory is present and Steam
+###     servers are down, returns data
+###     from Cached inventory.
+
     def getItems(self, userID64, gameID):
 
         #need a cookie["steamLoginSecure"] in order to
@@ -38,8 +48,14 @@ class client:
 
         return userInventory
 
-    #Saves an inventory as a JSON file
-    #PATH: /json/
+
+
+###------------Caching/Uncaching Functions------------###
+###
+###     If JSON is obtained, caches it.
+###     If unable to obtain JSON from Steam servers
+###     obtain from local storage.
+
     def cacheInventory(self, gameID, inventory):
         with open("json/{}.json".format(gameID), 'w') as fout:
 
@@ -49,7 +65,6 @@ class client:
             else:
                 fout.write("{}")
 
-    #Reads the inventory from local JSON
     def uncacheInventory(self, gameID):
         try:
             with open("json/{}.json".format(gameID), 'r') as fin:
@@ -60,6 +75,13 @@ class client:
         except FileNotFoundError:
             print("There is not file Cached for Game: {}".format(gameID))
             return {}
+
+
+
+###------------Price History Functions------------###
+###
+###     Gets the data(points) from the Graph on
+###     Steam Marketplace, and processes it.
 
     def getPriceHistory(self, item: "Item"):
         r = requests.post(item.priceHistoryURL, cookies = URL.COOKIE)

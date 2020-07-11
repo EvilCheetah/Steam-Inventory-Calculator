@@ -19,13 +19,20 @@ class inventory:
         self.readGames()
         self.readIgnoredItems()
 
-    #Adds the games into List that user wanted to track
+
+
+###------------Read Config Functions------------###
+###
+###     These functions read the data from the
+###     config files, in order to customize the
+###     program for the user, as well as ingore
+###     some unnecessary items.
+
     def readGames(self):
         for key in self.config["GAMES"]:
             if (self.config["GAMES"][key] == "True"):
                 self.games.append( key )
 
-    #Reads the values from itemProperties.json file
     def readIgnoredItems(self):
         PATH = self.config["DEFAULT"]["ITEM_PROPERTIES"]
 
@@ -49,8 +56,10 @@ class inventory:
             #Loop over Properties in Games
             for property, parameters in properties.items():
 
-                #Create a temp array for item storage
+                #Array for Quality, Type
                 ignoreArray = []
+
+                #Dictionary for Price
                 ignoreDict  = {}
 
                 #Loop over the Elements in Properties
@@ -60,27 +69,40 @@ class inventory:
                         ignoreArray.append(parameter)
                         continue
 
+                    #Records a Lower Margin
                     elif ( parameter == "LOWER_MARGIN"):
+                        #Ignore Lower Margin if
                         if ( float(value) < 0 or value == "False" or value == "None"):
                             continue
 
                         ignoreDict[parameter] = float(value)
 
+                    #Records an Upper Margin
                     elif ( parameter == "UPPER_MARGIN"):
+                        #Ignore Upper Margin if:
                         if ( value == "INF" or value == False ):
                             continue
 
                         ignoreDict[parameter] = float(value)
 
-                #Record the array
+                #Record the Dictionary if there is a data
                 if ( ignoreDict ):
                     self.avoidItems[game][property] = ignoreDict
                     continue
 
+                #If Dictionary is empty => Array is not
                 else:
                     self.avoidItems[game][property] = ignoreArray
 
-    #For File output(Large Amnt of Information)
+
+
+###------------File Output Function------------###
+###
+###     This is Debug Use function implemented,
+###     because of the large size of inventories
+###     of some users and malfuncion of console
+###     to output all items.
+
     def outputItemList(self):
         with open("out.txt", 'w') as fout:
             for game in self.userItems.values():
@@ -88,6 +110,18 @@ class inventory:
                     out = str(item)
                     fout.write(out)
                     fout.write('\n\n')
+
+
+
+###------------Main Body Function------------###
+###
+###     Returns a Dictionary based on user's
+###     config, with such outline:
+###     {
+###        "game1": [item1, item2, ...],
+###        "game2": [item1, item2, ...],
+###        ...
+###     }
 
     def getInventoryList(self):
         for game in self.games:
@@ -100,11 +134,23 @@ class inventory:
                 continue
 
             inventory = self.processInventory(game, inventory)
+
+            #Convert to array
             inventory = list(inventory)
 
             self.userItems[game] = inventory
 
         self.outputItemList()
+
+
+
+###------------Inventory Processing Funcions------------###
+###
+###     Each function handles each individual game.
+###     Every inventory outline is different and using
+###     a single function would cause errors, need
+###     adjustments or complicate code and its
+###     readability.
 
     def processInventory(self, game, inventory):
         items = {}
@@ -121,6 +167,8 @@ class inventory:
         elif ( game == "RUST"):
             items = self.processRUSTItems(itemDescription)
 
+
+        ## TODO: Add other items
         elif ( game == "UNTURNED"):
             pass
 
@@ -178,19 +226,8 @@ class inventory:
 
             self.getAverageWeekPrice(item)
 
-            #Checks
-            #   avgPrice <= LOWER_MARGIN
-            if ( "LOWER_MARGIN" in self.avoidItems[item.gameName]["PRICE"] ):
-                if ( item.averagePrice <= self.avoidItems[item.gameName]["PRICE"]["LOWER_MARGIN"] ):
-                    #NOT IN RANGE!
-                    continue
-
-            #Checks
-            #   UPPER_MARGIN <= avgPrice
-            if ( "UPPER_MARGIN" in self.avoidItems[item.gameName]["PRICE"] ):
-                if ( item.averagePrice >= self.avoidItems[item.gameName]["PRICE"]["UPPER_MARGIN"] ):
-                    #NOT IN RANGE!
-                    continue
+            if ( not self.withinPriceRange(item) ):
+                continue
 
             itemList[itemID] = item
 
@@ -278,6 +315,28 @@ class inventory:
                                     )
 
         return itemList
+
+
+
+###-------Additional Funcions for Calculations-------###
+###
+###     These functions are implemented to make
+###     code more readable.
+
+    def withinPriceRange(self, item):
+        #   avgPrice <= LOWER_MARGIN
+        if ( "LOWER_MARGIN" in self.avoidItems[item.gameName]["PRICE"] ):
+            if ( item.averagePrice <= self.avoidItems[item.gameName]["PRICE"]["LOWER_MARGIN"] ):
+                #NOT IN RANGE!
+                return False
+
+        #   UPPER_MARGIN <= avgPrice
+        if ( "UPPER_MARGIN" in self.avoidItems[item.gameName]["PRICE"] ):
+            if ( item.averagePrice >= self.avoidItems[item.gameName]["PRICE"]["UPPER_MARGIN"] ):
+                #NOT IN RANGE!
+                return False
+
+        return True
 
     def getAverageWeekPrice(self, item):
         #If item is not MARKETABLE
